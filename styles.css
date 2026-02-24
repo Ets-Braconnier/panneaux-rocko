@@ -1,0 +1,193 @@
+
+:root{
+  --text:#2b2b2b;
+  --muted:#666;
+  --soft:#f6f6f6;
+  --max:1250px;
+  --radius:14px;
+}
+
+*,
+*::before,
+*::after{ box-sizing:border-box; }
+
+html, body{
+  overflow-x:hidden;
+  max-width:100%;
+}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:#fff;
+}
+
+img{ max-width:100%; height:auto; display:block; }
+
+a{ color:inherit; text-decoration:none; }
+a:hover{ text-decoration:underline; }
+
+#app{
+  width:min(var(--max), 100% - 32px);
+  margin:18px auto 28px;
+}
+
+/* Grille plus large */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:20px;
+  align-items:stretch;
+}
+
+figure{
+  margin:0;
+  border:1px solid #e1e1e1;
+  border-radius:12px;
+  padding:10px;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
+}
+
+figcaption{
+  font-size:13px;
+  font-weight:700;
+  text-align:center;
+  background:#f2f2f2;
+  width:100%;
+  padding:8px 10px;
+  margin:0 0 10px 0;
+  border-radius:10px;
+
+  min-height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1.2;
+}
+
+/* Image beaucoup plus grande */
+.thumb{
+  height:240px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border-radius:12px;
+  background:#fff;
+  border:1px solid #f0f0f0;
+}
+
+.thumb img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:12px;
+}
+
+.muted{ color:var(--muted); font-size:13px; }
+.missing{ font-size:12px; color:#c00; margin-top:10px; }
+
+/* Stock */
+.stock{
+  margin-top:10px;
+  font-size:13px;
+  font-weight:800;
+  text-align:center;
+}
+
+/* Tailles */
+.size{ display:flex; align-items:center; margin-top:8px; }
+
+.size select{
+  width:100%;
+  padding:10px 10px;
+  border:1px solid #ccc;
+  border-radius:12px;
+  font-size:13px;
+}
+
+/* PRIX */
+.price{
+  margin-top:auto;
+  padding:10px 0 2px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+}
+
+.price-label{
+  font-size:12px;
+  font-weight:700;
+  color:#555;
+}
+
+.price-amount{
+  display:flex;
+  align-items:flex-start;
+  gap:5px;
+  font-weight:900;
+  color:#333;
+}
+
+.price-amount .int{ font-size:30px; }
+.price-amount .dec{ font-size:14px; position:relative; top:3px; }
+.price-amount .eur{ font-size:14px; font-weight:800; color:#444; position:relative; top:11px; }
+
+/* liens titres produits (PDF) */
+.titleLink,
+.titleLink:visited,
+.titleLink:active,
+.titleLink:focus{
+  color:inherit;
+  text-decoration:none;
+  font-weight:700;
+}
+.titleLink:hover{ opacity:.75; text-decoration:none; }
+
+.pdfTag{
+  font-size:10px;
+  font-weight:800;
+  background:#e9ecef;
+  color:#555;
+  padding:2px 7px;
+  border-radius:7px;
+  margin-left:6px;
+  letter-spacing:.5px;
+}
+
+/* ===== Carte "fiche catalogue" ===== */
+.is-fiche .stock,
+.is-fiche .size,
+.is-fiche .price{
+  display:none !important;
+}
+
+.ficheHint{
+  margin-top:12px;
+  text-align:center;
+  font-weight:800;
+  font-size:13px;
+  color:#444;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width:700px){
+  #app{ margin-top:12px; }
+  .grid{
+    grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+    gap:14px;
+  }
+  .thumb{ height:200px; }
+}
+
+@media (max-width:380px){
+  #app{ width:calc(100% - 24px); }
+  .grid{ grid-template-columns:1fr; }
+  .thumb{ height:220px; }
+}
