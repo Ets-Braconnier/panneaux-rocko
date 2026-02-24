@@ -32,9 +32,9 @@
     //  CARTE "FICHE" (8e carte) : image + lien PDF, sans prix/stock/tailles
     // =========================
     const EXTRA_CARD = {
-      image: "fiche.png", // galerie/fiche.png
+      image: "fiche.png",
       label: "Catalogue Rocko",
-      pdf: "pdf/RokoTilescatalogueFR.pdf"
+      pdf: "./pdf/catalogue-rocko.pdf"
     };
 
     // Noms d'affichage (optionnel)
@@ -180,7 +180,9 @@
         const taille = normalizeSize(k.slice(sep + 1));
         if (!pathKey || !taille) continue;
 
+        // on ignore les valeurs qui ressemblent à des extensions d'image
         if (/\.(png|jpg|jpeg|webp)$/i.test(taille)) continue;
+
         (idx[pathKey] ||= []).push(taille);
       }
 
@@ -191,11 +193,14 @@
         const allNumeric = unique.every(v => /^\d+(?:[.,]\d+)?$/.test(String(v).trim()));
 
         idx[p] = allNumeric
-          ? unique.sort((a, b) => Number(String(a).replace(",", ".")) - Number(String(a).replace(",", ".")))
+          ? unique.sort((a, b) =>
+            Number(String(a).replace(",", ".")) - Number(String(b).replace(",", "."))
+          )
           : unique.sort((a, b) => collator.compare(String(a), String(b)));
       }
 
       return idx;
+
     }
 
     async function loadPricesFromFolder() {
@@ -269,11 +274,11 @@
           <figure>
             <figcaption>
               ${PRODUCT_PDFS[pathKey]
-                ? `<a href="${PRODUCT_PDFS[pathKey]}" target="_blank" rel="noopener" class="titleLink">
+            ? `<a href="${PRODUCT_PDFS[pathKey]}" target="_blank" rel="noopener" class="titleLink">
                     ${label} <span class="pdfTag">PDF</span>
                   </a>`
-                : label
-              }
+            : label
+          }
             </figcaption>
 
             <a class="thumb"
@@ -295,13 +300,13 @@
             <div class="price">
               <div class="price-label">${priceUnitLabel}</div>
               ${price !== undefined
-                ? `<div class="price-amount">
+            ? `<div class="price-amount">
                     <span class="int">${formatPrice(price).split(".")[0]}</span>
                     <span class="dec">${formatPrice(price).split(".")[1] || "00"}</span>
                     <span class="eur">€</span>
                   </div>`
-                : `<div class="price-amount muted">—</div>`
-              }
+            : `<div class="price-amount muted">—</div>`
+          }
             </div>
           </figure>
         `;
@@ -413,4 +418,5 @@
   </script>
 
 </body>
+
 </html>
